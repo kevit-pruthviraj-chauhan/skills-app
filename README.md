@@ -60,3 +60,11 @@ cd apps/server && uv run uvicorn app.main:app --reload --host 0.0.0.0 --port ${P
 - **Python FastAPI** (default client connection): `http://localhost:8000`, health endpoint `http://localhost:8000/health`.
 
 Cross-language clients communicate over HTTP. Framework-specific clients such as tRPC are used only with compatible backends. Generated connection files identify the default backend; additional services retain their own paths and endpoints.
+
+## Production deployments
+
+Successful GitHub Actions CI runs trigger production deployments from `main`: the FastAPI backend deploys to Render and the web app deploys to Vercel. Configure each provider's deploy hook for the `main` branch, then add the resulting URLs as GitHub Actions repository secrets named `RENDER_DEPLOY_HOOK_URL` and `VERCEL_DEPLOY_HOOK_URL`. Keep the hook URLs private.
+
+Configure the Render service with root directory `apps/server`, build command `uv sync --no-dev`, and start command `uv run uvicorn app.main:app --host 0.0.0.0 --port $PORT`. Set `CORS_ORIGIN` to the production Vercel origin and disable Render's automatic deploy-on-commit so deployments wait for CI.
+
+Configure the Vercel project with root directory `apps/web` and set `VITE_SERVER_URL` to the deployed Render API URL. The Vercel configuration disables automatic Git deployments for `main`; the deploy hook is triggered only after CI passes.

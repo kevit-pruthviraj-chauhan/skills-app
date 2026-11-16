@@ -31,3 +31,31 @@ jobs:
 
       - name: Build
         run: bun run build
+
+  deploy-render:
+    name: Deploy API to Render
+    needs: ci
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger Render deployment
+        env:
+          RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+        run: |
+          test -n "$RENDER_DEPLOY_HOOK_URL" || { echo "Missing RENDER_DEPLOY_HOOK_URL secret"; exit 1; }
+          curl --fail --silent --show-error --request POST "$RENDER_DEPLOY_HOOK_URL"
+
+  deploy-vercel:
+    name: Deploy frontend to Vercel
+    needs: ci
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger Vercel deployment
+        env:
+          VERCEL_DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+        run: |
+          test -n "$VERCEL_DEPLOY_HOOK_URL" || { echo "Missing VERCEL_DEPLOY_HOOK_URL secret"; exit 1; }
+          curl --fail --silent --show-error --request POST "$VERCEL_DEPLOY_HOOK_URL"

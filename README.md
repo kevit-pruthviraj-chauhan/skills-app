@@ -33,13 +33,19 @@ Copy each application's `.env.example` to `.env` when present and configure data
 
 ## Local development
 
-Start the selected web applications and backend services together:
+Start the frontend and FastAPI backend together from the workspace root:
 
 ```sh
 bun run dev
 ```
 
-The supervisor stops the other services when one exits. Native mobile applications run separately so you can choose a simulator or device. Open Kotlin applications in Android Studio.
+This runs the frontend through Nx (`web:dev`) and starts the backend alongside it. Nx can also start the frontend by itself:
+
+```sh
+bunx nx run web:dev
+```
+
+The supervisor stops the other service when one exits. Native mobile applications run separately so you can choose a simulator or device. Open Kotlin applications in Android Studio.
 
 ### Python FastAPI
 

@@ -67,3 +67,5 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 apps/server/.venv/
+apps/server/.dotsync.json
+apps/web/.dotsync.json

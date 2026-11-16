@@ -99,3 +99,6 @@ Thumbs.db
 
 # Better Fullstack recovery snapshots
 .bts/recovery
+
+# dotsync — never commit secrets
+.env.local

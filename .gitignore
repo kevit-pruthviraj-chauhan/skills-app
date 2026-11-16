@@ -58,3 +58,12 @@ temp
 /AGENTS.md
 /AGENTS.md.bak
 # END Ruler Generated Files
+
+# Nx
+.nx/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+apps/server/.venv/

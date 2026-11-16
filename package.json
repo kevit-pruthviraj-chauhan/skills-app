@@ -13,10 +13,10 @@
   },
   "type": "module",
   "scripts": {
-    "dev": "concurrently --kill-others \"nx run web --target=dev\" \"bash scripts/native/task-1.sh\"",
+    "dev": "concurrently --kill-others \"nx run web:dev\" \"bash scripts/native/task-1.sh\"",
     "build": "nx run-many -t build",
     "check-types": "nx run-many -t check-types",
-    "dev:web": "nx run web --target=dev",
+    "dev:web": "nx run web:dev",
     "dev:server": "bash scripts/native/task-1.sh",
     "setup:server": "bash scripts/native/task-2.sh",
     "check:server": "bash scripts/native/task-3.sh",

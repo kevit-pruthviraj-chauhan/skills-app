@@ -1,2 +1,4 @@
 gitleaks git --pre-commit --redact --staged --verbose
 lint-staged
+bun run check-types
+bun run build

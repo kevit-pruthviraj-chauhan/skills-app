@@ -1,0 +1,60 @@
+{
+  "name": "skills-app",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "apps/*",
+      "packages/*"
+    ],
+    "catalog": {
+      "dotenv": "^17.4.2",
+      "zod": "^4.6.5"
+    }
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently --kill-others \"nx run web --target=dev\" \"bash scripts/native/task-1.sh\"",
+    "build": "nx run-many -t build",
+    "check-types": "nx run-many -t check-types",
+    "dev:web": "nx run web --target=dev",
+    "dev:server": "bash scripts/native/task-1.sh",
+    "setup:server": "bash scripts/native/task-2.sh",
+    "check:server": "bash scripts/native/task-3.sh",
+    "test:server": "bash scripts/native/task-4.sh",
+    "setup:part:backend:python:fastapi": "bash scripts/native/task-2.sh",
+    "dev:part:backend:python:fastapi": "bash scripts/native/task-1.sh",
+    "check:part:backend:python:fastapi": "bash scripts/native/task-3.sh",
+    "test:part:backend:python:fastapi": "bash scripts/native/task-4.sh",
+    "lint:eslint": "eslint .",
+    "format:prettier": "prettier --write .",
+    "format:prettier:check": "prettier --check .",
+    "secrets:scan": "gitleaks git --redact --verbose",
+    "secrets:scan:staged": "gitleaks git --pre-commit --redact --staged --verbose",
+    "test": "bun run --filter web test",
+    "prepare": "husky",
+    "ruler:apply": "bunx @intellectronica/ruler@latest apply --local-only"
+  },
+  "dependencies": {
+    "@skills-app/env": "workspace:*",
+    "dotenv": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@skills-app/config": "workspace:*",
+    "concurrently": "^9.2.1",
+    "eslint": "^10.12.0",
+    "globals": "^17.13.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.6.0",
+    "nx": "^23.2.1",
+    "prettier": "^3.9.9",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.71.0",
+    "vercel": "^54.18.2"
+  },
+  "lint-staged": {
+    "**/*.{js,mjs,cjs,jsx,ts,mts,cts,tsx,vue,astro,svelte}": ""
+  },
+  "packageManager": "bun@1.3.14"
+}
